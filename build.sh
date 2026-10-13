@@ -3,7 +3,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PLUGIN_SLUG="sikora-custom-login"
+PLUGIN_SLUG="login-page-customizer"
 MAIN_FILE="${ROOT_DIR}/${PLUGIN_SLUG}.php"
 
 if [[ ! -f "${MAIN_FILE}" ]]; then
@@ -11,7 +11,7 @@ if [[ ! -f "${MAIN_FILE}" ]]; then
 	exit 1
 fi
 
-# Read Version and Plugin Name from the plugin header.
+# Read Version from the plugin header.
 VERSION="$(
 	grep -E '^[[:space:]]*\*[[:space:]]*Version:[[:space:]]*' "${MAIN_FILE}" \
 		| head -n 1 \
@@ -24,25 +24,7 @@ if [[ -z "${VERSION}" ]]; then
 	exit 1
 fi
 
-PLUGIN_NAME="$(
-	grep -E '^[[:space:]]*\*[[:space:]]*Plugin Name:[[:space:]]*' "${MAIN_FILE}" \
-		| head -n 1 \
-		| sed -E 's/^[[:space:]]*\*[[:space:]]*Plugin Name:[[:space:]]*//' \
-		| sed -E 's/[[:space:]]+$//'
-)"
-
-if [[ -z "${PLUGIN_NAME}" ]]; then
-	echo "error: could not read Plugin Name from ${MAIN_FILE}" >&2
-	exit 1
-fi
-
-# Slugify the display name for the ZIP filename (e.g. "Sikora Custom Login" → sikora-custom-login.zip).
-ZIP_SLUG="$(
-	printf '%s' "${PLUGIN_NAME}" \
-		| tr '[:upper:]' '[:lower:]' \
-		| sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//'
-)"
-ZIP_NAME="${ZIP_SLUG}.zip"
+ZIP_NAME="${PLUGIN_SLUG}.zip"
 ZIP_PATH="${ROOT_DIR}/${ZIP_NAME}"
 BUILD_DIR="$(mktemp -d "${TMPDIR:-/tmp}/${PLUGIN_SLUG}-build.XXXXXX")"
 STAGE_DIR="${BUILD_DIR}/${PLUGIN_SLUG}"
@@ -55,6 +37,7 @@ trap cleanup EXIT
 mkdir -p "${STAGE_DIR}/assets"
 
 # Only the files required for the distributable plugin.
+# Intentionally omits tests/, README.md, build.sh, and Composer files.
 INCLUDE_FILES=(
 	"${PLUGIN_SLUG}.php"
 	"uninstall.php"
@@ -79,14 +62,11 @@ rm -f "${ZIP_PATH}"
 	zip -r "${ZIP_PATH}" "${PLUGIN_SLUG}" >/dev/null
 )
 
-echo "Created ${ZIP_PATH} (version ${VERSION})"
-echo
-echo "Files included:"
+echo "Created ${ZIP_NAME} (version ${VERSION})"
+FILE_COUNT="$(unzip -Z1 "${ZIP_PATH}" | grep -cv '/$' || true)"
+echo "Files included: ${FILE_COUNT}"
 unzip -Z1 "${ZIP_PATH}" | sort | while IFS= read -r entry; do
 	# Skip directory-only entries for a cleaner file list.
 	[[ "${entry}" == */ ]] && continue
 	echo "  ${entry}"
 done
-FILE_COUNT="$(unzip -Z1 "${ZIP_PATH}" | grep -cv '/$' || true)"
-echo
-echo "Total files: ${FILE_COUNT}"

@@ -99,8 +99,8 @@
         removeBtn: '#sikora-remove-logo',
         field: '#sikora-logo-image-id',
         preview: '#sikora-logo-preview',
-        title: 'Sikora Custom Login — Choose Business Logo',
-        previewAlt: 'Current Sikora Custom Login business logo'
+        title: 'Login Page Customizer — Choose Business Logo',
+        previewAlt: 'Current Login Page Customizer business logo'
     });
 
     bindImagePicker({
@@ -108,8 +108,8 @@
         removeBtn: '#sikora-remove-image',
         field: '#sikora-bg-image-id',
         preview: '#sikora-image-preview',
-        title: 'Sikora Custom Login — Choose Background Image',
-        previewAlt: 'Current Sikora Custom Login background'
+        title: 'Login Page Customizer — Choose Background Image',
+        previewAlt: 'Current Login Page Customizer background'
     });
 
     // Background color picker (Iris); clearing it falls back to the WordPress default.

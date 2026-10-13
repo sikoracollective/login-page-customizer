@@ -1,10 +1,10 @@
-=== Sikora Custom Login ===
+=== Login Page Customizer ===
 Contributors: sikoracollective
 Tags: login, custom login, branding, admin login, media library
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.2.2
+Stable tag: 2.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Customize the WordPress login screen with a Media Library background image and a
 
 == Description ==
 
-Sikora Custom Login customizes `wp-login.php` for a cleaner, on-brand experience.
+Login Page Customizer customizes `wp-login.php` for a cleaner, on-brand experience.
 
 = Features =
 
@@ -21,7 +21,6 @@ Sikora Custom Login customizes `wp-login.php` for a cleaner, on-brand experience
 * Pick a background color used when no background image is selected
 * Center the login form in the viewport
 * Optionally hide the "Lost your password?" link
-* Stores an attachment ID (not a raw URL) and validates images server-side
 
 = Security notes =
 
@@ -34,7 +33,7 @@ Sikora Custom Login customizes `wp-login.php` for a cleaner, on-brand experience
 
 1. Install the ZIP file via **Plugins → Add New → Upload Plugin**.
 2. Activate the plugin through the **Plugins** screen.
-3. Go to **Settings → Sikora Custom Login**.
+3. Go to **Settings → Login Page Customizer**.
 4. Optionally choose a **Business Logo** from the Media Library.
 5. Choose a background image from the Media Library and save.
 6. Optionally pick a **Background Color**, used only when no background image is selected.
@@ -44,7 +43,7 @@ Sikora Custom Login customizes `wp-login.php` for a cleaner, on-brand experience
 
 = Where are the settings? =
 
-**Settings → Sikora Custom Login**.
+Settings → Login Page Customizer
 
 = Why isn't my background color showing? =
 
@@ -72,6 +71,13 @@ No. Use a dedicated security plugin for rate limiting, two-factor authentication
 2. Customized WordPress login screen with background image.
 
 == Changelog ==
+
+= 2.4.0 =
+* Add PHPUnit integration tests under tests/ (not shipped in the ZIP)
+
+= 2.3.0 =
+* Rename plugin to Login Page Customizer
+* Use the login-page-customizer slug
 
 = 2.2.2 =
 * Rename plugin to Sikora Custom Login
