@@ -21,7 +21,6 @@ Login Page Customizer customizes `wp-login.php` for a cleaner, on-brand experien
 * Pick a background color used when no background image is selected
 * Center the login form in the viewport
 * Optionally hide the "Lost your password?" link
-* Stores an attachment ID (not a raw URL) and validates images server-side
 
 = Security notes =
 
@@ -44,7 +43,7 @@ Login Page Customizer customizes `wp-login.php` for a cleaner, on-brand experien
 
 = Where are the settings? =
 
-**Settings → Login Page Customizer**.
+Settings → Login Page Customizer
 
 = Why isn't my background color showing? =
 
