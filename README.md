@@ -1,10 +1,10 @@
-# Sikora Custom Login
+# Login Page Customizer
 
 Customize the WordPress login screen with a Media Library background image and a cleaner branded layout.
 
 | | |
 | --- | --- |
-| **Version** | 2.2.2 |
+| **Version** | 2.4.0 |
 | **Requires at least** | WordPress 6.0 |
 | **Tested up to** | 7.1 |
 | **Requires PHP** | 7.4 |
@@ -13,7 +13,7 @@ Customize the WordPress login screen with a Media Library background image and a
 
 ## Description
 
-Sikora Custom Login customizes `wp-login.php` for a cleaner, on-brand experience.
+Login Page Customizer customizes `wp-login.php` for a cleaner, on-brand experience.
 
 ### Features
 
@@ -22,7 +22,6 @@ Sikora Custom Login customizes `wp-login.php` for a cleaner, on-brand experience
 - Pick a background color used when no background image is selected
 - Center the login form in the viewport
 - Optionally hide the "Lost your password?" link
-- Stores an attachment ID (not a raw URL) and validates images server-side
 
 ### Security notes
 
@@ -35,7 +34,7 @@ Sikora Custom Login customizes `wp-login.php` for a cleaner, on-brand experience
 
 1. Install the ZIP file via **Plugins → Add New → Upload Plugin**.
 2. Activate the plugin through the **Plugins** screen.
-3. Go to **Settings → Sikora Custom Login**.
+3. Go to **Settings → Login Page Customizer**.
 4. Optionally choose a **Business Logo** from the Media Library.
 5. Choose a background image from the Media Library and save.
 6. Optionally pick a **Background Color**, used only when no background image is selected.
@@ -45,7 +44,7 @@ Sikora Custom Login customizes `wp-login.php` for a cleaner, on-brand experience
 
 ### Where are the settings?
 
-**Settings → Sikora Custom Login**.
+Settings → Login Page Customizer.
 
 ### Why was my background image cleared?
 
@@ -70,19 +69,37 @@ No. Use a dedicated security plugin for rate limiting, two-factor authentication
 ## Project structure
 
 ```
-sikora-custom-login/
-├── sikora-custom-login.php   # Main plugin file
+login-page-customizer/
+├── login-page-customizer.php   # Main plugin file
 ├── uninstall.php                # Option cleanup on delete
 ├── readme.txt                   # WordPress.org readme
 ├── README.md                    # This file
-├── build.sh                     # Builds the distributable ZIP
-└── assets/
-    ├── admin.js                 # Settings page Media Library picker / color picker
-    ├── login.css                # Login page layout / branding CSS (printed inline)
-    └── .htaccess                # Block PHP execution in assets/
+├── build.sh                     # Builds the distributable ZIP (excludes tests/)
+├── assets/
+│   ├── admin.js                 # Settings page Media Library picker / color picker
+│   ├── login.css                # Login page layout / branding CSS (printed inline)
+│   └── .htaccess                # Block PHP execution in assets/
+└── tests/                       # PHPUnit suite (not shipped in the ZIP)
+    ├── unit/                    # Integration tests
+    ├── includes/                # Shared test helpers and logger
+    ├── fixtures/                # Sample images for attachment tests
+    ├── logs/                    # results.log at runtime (gitignored)
+    ├── bin/install-wp-tests.sh  # WordPress test suite installer
+    ├── bootstrap.php
+    ├── composer.json
+    └── phpunit.xml.dist
 ```
 
 ## Changelog
+
+### 2.4.0
+
+- Add PHPUnit integration tests under `tests/`
+
+### 2.3.0
+
+- Rename plugin to Login Page Customizer
+- Use the `login-page-customizer` slug
 
 ### 2.2.2
 
