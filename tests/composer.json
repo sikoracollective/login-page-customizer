@@ -1,0 +1,28 @@
+{
+	"name": "sikoracollective/login-page-customizer-tests",
+	"description": "PHPUnit integration tests for Login Page Customizer",
+	"license": "GPL-2.0-or-later",
+	"require": {
+		"php": ">=7.4"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^9.6",
+		"yoast/phpunit-polyfills": "^2.0",
+		"wp-phpunit/wp-phpunit": "^6.7"
+	},
+	"autoload-dev": {
+		"classmap": [
+			"includes/"
+		]
+	},
+	"scripts": {
+		"test": "phpunit -c phpunit.xml.dist",
+		"test-install": "bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1 latest"
+	},
+	"config": {
+		"sort-packages": true,
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
+}
