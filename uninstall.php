@@ -1,6 +1,6 @@
 <?php
 /**
- * Uninstall cleanup for Sikora Custom Login.
+ * Uninstall cleanup for Login Page Customizer.
  *
  * Fired when the plugin is deleted via the WordPress admin.
  */
