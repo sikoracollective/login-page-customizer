@@ -1,10 +1,10 @@
-=== Login Page Customizer ===
+=== Sikorix Login Page Customizer ===
 Contributors: sikoracollective
 Tags: login, custom login, branding, admin login, media library
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.4.0
+Stable tag: 2.5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Customize the WordPress login screen with a Media Library background image and a
 
 == Description ==
 
-Login Page Customizer customizes `wp-login.php` for a cleaner, on-brand experience.
+Sikorix Login Page Customizer customizes `wp-login.php` for a cleaner, on-brand experience.
 
 = Features =
 
@@ -33,7 +33,7 @@ Login Page Customizer customizes `wp-login.php` for a cleaner, on-brand experien
 
 1. Install the ZIP file via **Plugins → Add New → Upload Plugin**.
 2. Activate the plugin through the **Plugins** screen.
-3. Go to **Settings → Login Page Customizer**.
+3. Go to **Settings → Sikorix Login Page Customizer**.
 4. Optionally choose a **Business Logo** from the Media Library.
 5. Choose a background image from the Media Library and save.
 6. Optionally pick a **Background Color**, used only when no background image is selected.
@@ -43,7 +43,7 @@ Login Page Customizer customizes `wp-login.php` for a cleaner, on-brand experien
 
 = Where are the settings? =
 
-Settings → Login Page Customizer
+Settings → Sikorix Login Page Customizer
 
 = Why isn't my background color showing? =
 
@@ -59,7 +59,7 @@ No. CSS only hides the link. Password reset works normally by default. Check **R
 
 = Can I use a CDN-hosted image? =
 
-Yes, if the attachment is still a Media Library item. If your CDN uses a different hostname, add it with the `sikora_login_allowed_bg_hosts` filter.
+Yes, if the attachment is still a Media Library item. If your CDN uses a different hostname, add it with the `sikorix_login_allowed_bg_hosts` filter.
 
 = Does this replace a security plugin? =
 
@@ -72,6 +72,11 @@ No. Use a dedicated security plugin for rate limiting, two-factor authentication
 
 == Changelog ==
 
+= 2.5.0 =
+* Rename plugin to Sikorix Login Page Customizer
+* Use the sikorix-login-page-customizer slug
+* Use sikorix* code prefixes throughout
+
 = 2.4.0 =
 * Add PHPUnit integration tests under tests/ (not shipped in the ZIP)
 
@@ -80,8 +85,8 @@ No. Use a dedicated security plugin for rate limiting, two-factor authentication
 * Use the login-page-customizer slug
 
 = 2.2.2 =
-* Rename plugin to Sikora Custom Login
-* Use the sikora-custom-login slug (no "wordpress" in the plugin identity)
+* Rename plugin (no "wordpress" in the plugin identity)
+* Use a slug without "wordpress" in the plugin identity
 
 = 2.2.1 =
 * Show the plugin version beside the settings page title

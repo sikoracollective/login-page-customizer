@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name:       Login Page Customizer
+ * Plugin Name:       Sikorix Login Page Customizer
  * Description:       Customize the WordPress login screen with your business logo, background image or color, and optional password-reset link control.
- * Version:           2.4.0
+ * Version:           2.5.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            <a href="https://sikoracollective.com/">Sikora Collective</a>
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       login-page-customizer
+ * Text Domain:       sikorix-login-page-customizer
  *
- * @package LoginPageCustomizer
+ * @package SikorixLoginPageCustomizer
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 2.0.0
  * @var string
  */
-define( 'SIKORA_LOGIN_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'SIKORIX_LOGIN_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 /**
  * URL to the plugin directory, with trailing slash.
@@ -31,7 +31,7 @@ define( 'SIKORA_LOGIN_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
  * @since 2.0.0
  * @var string
  */
-define( 'SIKORA_LOGIN_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'SIKORIX_LOGIN_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * Plugin version string. Used as a fallback asset version when filemtime is unavailable.
@@ -39,7 +39,7 @@ define( 'SIKORA_LOGIN_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
  * @since 2.0.0
  * @var string
  */
-define( 'SIKORA_LOGIN_VERSION', '2.4.0' );
+define( 'SIKORIX_LOGIN_VERSION', '2.5.0' );
 
 /**
  * Option name for the login business logo Media Library attachment ID.
@@ -50,7 +50,7 @@ define( 'SIKORA_LOGIN_VERSION', '2.4.0' );
  * @since 2.2.0
  * @var string
  */
-define( 'SIKORA_LOGIN_LOGO_OPTION', 'sikora_login_logo_image' );
+define( 'SIKORIX_LOGIN_LOGO_OPTION', 'sikorix_login_logo_image' );
 
 /**
  * Display size of the login logo area in pixels (matches WordPress core logo).
@@ -58,7 +58,7 @@ define( 'SIKORA_LOGIN_LOGO_OPTION', 'sikora_login_logo_image' );
  * @since 2.2.0
  * @var int
  */
-define( 'SIKORA_LOGIN_LOGO_SIZE', 84 );
+define( 'SIKORIX_LOGIN_LOGO_SIZE', 84 );
 
 /**
  * Option name for the login background Media Library attachment ID.
@@ -69,7 +69,7 @@ define( 'SIKORA_LOGIN_LOGO_SIZE', 84 );
  * @since 2.0.0
  * @var string
  */
-define( 'SIKORA_LOGIN_BG_OPTION', 'sikora_login_bg_image' );
+define( 'SIKORIX_LOGIN_BG_OPTION', 'sikorix_login_bg_image' );
 
 /**
  * Option name for the login background color.
@@ -80,7 +80,7 @@ define( 'SIKORA_LOGIN_BG_OPTION', 'sikora_login_bg_image' );
  * @since 2.1.0
  * @var string
  */
-define( 'SIKORA_LOGIN_BG_COLOR_OPTION', 'sikora_login_bg_color' );
+define( 'SIKORIX_LOGIN_BG_COLOR_OPTION', 'sikorix_login_bg_color' );
 
 /**
  * Default login background color.
@@ -91,7 +91,7 @@ define( 'SIKORA_LOGIN_BG_COLOR_OPTION', 'sikora_login_bg_color' );
  * @since 2.1.0
  * @var string
  */
-define( 'SIKORA_LOGIN_BG_COLOR_DEFAULT', '#eaeaea' );
+define( 'SIKORIX_LOGIN_BG_COLOR_DEFAULT', '#eaeaea' );
 
 /**
  * Option name for whether password reset on wp-login.php is disabled.
@@ -101,7 +101,7 @@ define( 'SIKORA_LOGIN_BG_COLOR_DEFAULT', '#eaeaea' );
  * @since 2.0.0
  * @var string
  */
-define( 'SIKORA_LOGIN_DISABLE_RESET_OPTION', 'sikora_login_disable_password_reset' );
+define( 'SIKORIX_LOGIN_DISABLE_RESET_OPTION', 'sikorix_login_disable_password_reset' );
 
 /**
  * Transient name used to show an admin notice after clearing an invalid background.
@@ -109,7 +109,7 @@ define( 'SIKORA_LOGIN_DISABLE_RESET_OPTION', 'sikora_login_disable_password_rese
  * @since 2.0.0
  * @var string
  */
-define( 'SIKORA_LOGIN_INVALID_BG_NOTICE', 'sikora_login_invalid_bg_notice' );
+define( 'SIKORIX_LOGIN_INVALID_BG_NOTICE', 'sikorix_login_invalid_bg_notice' );
 
 /**
  * Returns the capability required to manage plugin settings.
@@ -118,9 +118,9 @@ define( 'SIKORA_LOGIN_INVALID_BG_NOTICE', 'sikora_login_invalid_bg_notice' );
  *
  * @return string Capability slug.
  */
-function sikora_login_manage_capability() {
+function sikorix_login_manage_capability() {
 	/**
-	 * Filters the capability required to manage Login Page Customizer settings.
+	 * Filters the capability required to manage Sikorix Login Page Customizer settings.
 	 *
 	 * Useful on multisite installs that need a capability other than `manage_options`.
 	 *
@@ -128,22 +128,22 @@ function sikora_login_manage_capability() {
 	 *
 	 * @param string $capability Capability name. Default 'manage_options'.
 	 */
-	return (string) apply_filters( 'sikora_login_manage_capability', 'manage_options' );
+	return (string) apply_filters( 'sikorix_login_manage_capability', 'manage_options' );
 }
 
 /**
  * Builds a cache-busting version string for a plugin asset.
  *
  * Prefers the file modification time so browsers pick up changes without a
- * manual version bump. Falls back to {@see SIKORA_LOGIN_VERSION}.
+ * manual version bump. Falls back to {@see SIKORIX_LOGIN_VERSION}.
  *
  * @since 2.0.0
  *
  * @param string $relative_path Path relative to the plugin root (e.g. 'assets/admin.js').
  * @return string Version string suitable for {@see wp_enqueue_script()} / {@see wp_enqueue_style()}.
  */
-function sikora_login_asset_version( $relative_path ) {
-	$file = SIKORA_LOGIN_PLUGIN_DIR . ltrim( str_replace( '\\', '/', $relative_path ), '/' );
+function sikorix_login_asset_version( $relative_path ) {
+	$file = SIKORIX_LOGIN_PLUGIN_DIR . ltrim( str_replace( '\\', '/', $relative_path ), '/' );
 
 	if ( is_readable( $file ) ) {
 		$mtime = filemtime( $file );
@@ -152,7 +152,7 @@ function sikora_login_asset_version( $relative_path ) {
 		}
 	}
 
-	return SIKORA_LOGIN_VERSION;
+	return SIKORIX_LOGIN_VERSION;
 }
 
 /**
@@ -163,7 +163,7 @@ function sikora_login_asset_version( $relative_path ) {
  * @param int $attachment_id Attachment ID, passed through to the filter. Default 0.
  * @return string[] List of allowed MIME type strings.
  */
-function sikora_login_allowed_bg_mimes( $attachment_id = 0 ) {
+function sikorix_login_allowed_bg_mimes( $attachment_id = 0 ) {
 	$allowed_mimes = array(
 		'image/jpeg',
 		'image/png',
@@ -181,7 +181,7 @@ function sikora_login_allowed_bg_mimes( $attachment_id = 0 ) {
 	 * @param string[] $allowed_mimes Allowed MIME types.
 	 * @param int      $attachment_id Attachment ID being evaluated.
 	 */
-	return apply_filters( 'sikora_login_allowed_bg_mimes', $allowed_mimes, $attachment_id );
+	return apply_filters( 'sikorix_login_allowed_bg_mimes', $allowed_mimes, $attachment_id );
 }
 
 /**
@@ -195,7 +195,7 @@ function sikora_login_allowed_bg_mimes( $attachment_id = 0 ) {
  * @param int $attachment_id Attachment post ID.
  * @return bool True if the attachment is allowed as a background image.
  */
-function sikora_is_allowed_bg_image( $attachment_id ) {
+function sikorix_is_allowed_bg_image( $attachment_id ) {
 	$attachment_id = absint( $attachment_id );
 
 	if ( ! $attachment_id ) {
@@ -215,7 +215,7 @@ function sikora_is_allowed_bg_image( $attachment_id ) {
 		return false;
 	}
 
-	$allowed_mimes = sikora_login_allowed_bg_mimes( $attachment_id );
+	$allowed_mimes = sikorix_login_allowed_bg_mimes( $attachment_id );
 	$mime          = get_post_mime_type( $attachment_id );
 
 	if ( 'image/jpg' === $mime ) {
@@ -260,8 +260,8 @@ function sikora_is_allowed_bg_image( $attachment_id ) {
  * @param mixed $value Raw value from the settings form.
  * @return int Attachment ID to store, or 0 to clear the setting.
  */
-function sikora_sanitize_bg_image( $value ) {
-	$previous = (int) get_option( SIKORA_LOGIN_BG_OPTION, 0 );
+function sikorix_sanitize_bg_image( $value ) {
+	$previous = (int) get_option( SIKORIX_LOGIN_BG_OPTION, 0 );
 
 	// Field omitted from POST — keep the existing saved image.
 	if ( null === $value ) {
@@ -275,11 +275,11 @@ function sikora_sanitize_bg_image( $value ) {
 		return 0;
 	}
 
-	if ( sikora_is_allowed_bg_image( $id ) ) {
+	if ( sikorix_is_allowed_bg_image( $id ) ) {
 		return $id;
 	}
 
-	return sikora_is_allowed_bg_image( $previous ) ? $previous : 0;
+	return sikorix_is_allowed_bg_image( $previous ) ? $previous : 0;
 }
 
 /**
@@ -293,8 +293,8 @@ function sikora_sanitize_bg_image( $value ) {
  * @param mixed $value Raw value from the settings form.
  * @return int Attachment ID to store, or 0 to clear the setting.
  */
-function sikora_sanitize_logo_image( $value ) {
-	$previous = (int) get_option( SIKORA_LOGIN_LOGO_OPTION, 0 );
+function sikorix_sanitize_logo_image( $value ) {
+	$previous = (int) get_option( SIKORIX_LOGIN_LOGO_OPTION, 0 );
 
 	// Field omitted from POST — keep the existing saved logo.
 	if ( null === $value ) {
@@ -308,26 +308,26 @@ function sikora_sanitize_logo_image( $value ) {
 		return 0;
 	}
 
-	if ( sikora_is_allowed_bg_image( $id ) ) {
+	if ( sikorix_is_allowed_bg_image( $id ) ) {
 		return $id;
 	}
 
-	return sikora_is_allowed_bg_image( $previous ) ? $previous : 0;
+	return sikorix_is_allowed_bg_image( $previous ) ? $previous : 0;
 }
 
 /**
  * Returns the stored login background color.
  *
  * Re-sanitizes on read so a hand-edited option can never reach the stylesheet.
- * Falls back to {@see SIKORA_LOGIN_BG_COLOR_DEFAULT} only when no row exists; a
+ * Falls back to {@see SIKORIX_LOGIN_BG_COLOR_DEFAULT} only when no row exists; a
  * stored empty string means the user deliberately cleared the color.
  *
  * @since 2.1.0
  *
  * @return string Hex color (e.g. `#eaeaea`), or an empty string when cleared.
  */
-function sikora_login_get_bg_color() {
-	$color = sanitize_hex_color( (string) get_option( SIKORA_LOGIN_BG_COLOR_OPTION, SIKORA_LOGIN_BG_COLOR_DEFAULT ) );
+function sikorix_login_get_bg_color() {
+	$color = sanitize_hex_color( (string) get_option( SIKORIX_LOGIN_BG_COLOR_OPTION, SIKORIX_LOGIN_BG_COLOR_DEFAULT ) );
 
 	return $color ? $color : '';
 }
@@ -344,8 +344,8 @@ function sikora_login_get_bg_color() {
  * @param mixed $value Raw value from the settings form.
  * @return string Sanitized hex color, or an empty string to clear the setting.
  */
-function sikora_sanitize_bg_color( $value ) {
-	$previous = sikora_login_get_bg_color();
+function sikorix_sanitize_bg_color( $value ) {
+	$previous = sikorix_login_get_bg_color();
 
 	// Field omitted from POST — keep the existing saved color.
 	if ( null === $value ) {
@@ -371,12 +371,12 @@ function sikora_sanitize_bg_color( $value ) {
 	}
 
 	add_settings_error(
-		SIKORA_LOGIN_BG_COLOR_OPTION,
-		'sikora_login_bg_color_invalid',
+		SIKORIX_LOGIN_BG_COLOR_OPTION,
+		'sikorix_login_bg_color_invalid',
 		sprintf(
 			/* translators: %s: example hex color. */
-			__( 'The background color must be a hex value such as %s. The previous color was kept.', 'login-page-customizer' ),
-			SIKORA_LOGIN_BG_COLOR_DEFAULT
+			__( 'The background color must be a hex value such as %s. The previous color was kept.', 'sikorix-login-page-customizer' ),
+			SIKORIX_LOGIN_BG_COLOR_DEFAULT
 		),
 		'error'
 	);
@@ -395,7 +395,7 @@ function sikora_sanitize_bg_color( $value ) {
  * @param string $hex Hex color, with or without the leading `#`.
  * @return bool True when the color is dark.
  */
-function sikora_login_is_dark_color( $hex ) {
+function sikorix_login_is_dark_color( $hex ) {
 	$hex = ltrim( (string) $hex, '#' );
 
 	if ( 3 === strlen( $hex ) ) {
@@ -430,10 +430,10 @@ function sikora_login_is_dark_color( $hex ) {
  * @param mixed $value Raw submitted value.
  * @return int `1` when Remove is checked, `0` otherwise.
  */
-function sikora_sanitize_disable_password_reset( $value ) {
+function sikorix_sanitize_disable_password_reset( $value ) {
 	// Field omitted from POST — keep the existing choice.
 	if ( null === $value ) {
-		return sikora_login_is_password_reset_disabled() ? 1 : 0;
+		return sikorix_login_is_password_reset_disabled() ? 1 : 0;
 	}
 
 	return ( '1' === trim( (string) $value ) ) ? 1 : 0;
@@ -450,7 +450,7 @@ function sikora_sanitize_disable_password_reset( $value ) {
  * @param string $option Option name.
  * @return void
  */
-function sikora_login_set_option_autoload_no( $option ) {
+function sikorix_login_set_option_autoload_no( $option ) {
 	if ( function_exists( 'wp_set_option_autoload_values' ) ) {
 		wp_set_option_autoload_values( array( $option => false ) );
 		return;
@@ -477,11 +477,11 @@ function sikora_login_set_option_autoload_no( $option ) {
  *
  * @return void
  */
-function sikora_login_after_bg_option_saved() {
-	sikora_login_set_option_autoload_no( SIKORA_LOGIN_BG_OPTION );
+function sikorix_login_after_bg_option_saved() {
+	sikorix_login_set_option_autoload_no( SIKORIX_LOGIN_BG_OPTION );
 }
-add_action( 'add_option_' . SIKORA_LOGIN_BG_OPTION, 'sikora_login_after_bg_option_saved' );
-add_action( 'update_option_' . SIKORA_LOGIN_BG_OPTION, 'sikora_login_after_bg_option_saved' );
+add_action( 'add_option_' . SIKORIX_LOGIN_BG_OPTION, 'sikorix_login_after_bg_option_saved' );
+add_action( 'update_option_' . SIKORIX_LOGIN_BG_OPTION, 'sikorix_login_after_bg_option_saved' );
 
 /**
  * Sets autoload to no after the logo option is added or updated.
@@ -492,11 +492,11 @@ add_action( 'update_option_' . SIKORA_LOGIN_BG_OPTION, 'sikora_login_after_bg_op
  *
  * @return void
  */
-function sikora_login_after_logo_option_saved() {
-	sikora_login_set_option_autoload_no( SIKORA_LOGIN_LOGO_OPTION );
+function sikorix_login_after_logo_option_saved() {
+	sikorix_login_set_option_autoload_no( SIKORIX_LOGIN_LOGO_OPTION );
 }
-add_action( 'add_option_' . SIKORA_LOGIN_LOGO_OPTION, 'sikora_login_after_logo_option_saved' );
-add_action( 'update_option_' . SIKORA_LOGIN_LOGO_OPTION, 'sikora_login_after_logo_option_saved' );
+add_action( 'add_option_' . SIKORIX_LOGIN_LOGO_OPTION, 'sikorix_login_after_logo_option_saved' );
+add_action( 'update_option_' . SIKORIX_LOGIN_LOGO_OPTION, 'sikorix_login_after_logo_option_saved' );
 
 /**
  * Sets autoload to no after the background color option is added or updated.
@@ -507,11 +507,11 @@ add_action( 'update_option_' . SIKORA_LOGIN_LOGO_OPTION, 'sikora_login_after_log
  *
  * @return void
  */
-function sikora_login_after_bg_color_option_saved() {
-	sikora_login_set_option_autoload_no( SIKORA_LOGIN_BG_COLOR_OPTION );
+function sikorix_login_after_bg_color_option_saved() {
+	sikorix_login_set_option_autoload_no( SIKORIX_LOGIN_BG_COLOR_OPTION );
 }
-add_action( 'add_option_' . SIKORA_LOGIN_BG_COLOR_OPTION, 'sikora_login_after_bg_color_option_saved' );
-add_action( 'update_option_' . SIKORA_LOGIN_BG_COLOR_OPTION, 'sikora_login_after_bg_color_option_saved' );
+add_action( 'add_option_' . SIKORIX_LOGIN_BG_COLOR_OPTION, 'sikorix_login_after_bg_color_option_saved' );
+add_action( 'update_option_' . SIKORIX_LOGIN_BG_COLOR_OPTION, 'sikorix_login_after_bg_color_option_saved' );
 
 /**
  * Sets autoload to no after the disable-password-reset option is added or updated.
@@ -522,11 +522,11 @@ add_action( 'update_option_' . SIKORA_LOGIN_BG_COLOR_OPTION, 'sikora_login_after
  *
  * @return void
  */
-function sikora_login_after_reset_option_saved() {
-	sikora_login_set_option_autoload_no( SIKORA_LOGIN_DISABLE_RESET_OPTION );
+function sikorix_login_after_reset_option_saved() {
+	sikorix_login_set_option_autoload_no( SIKORIX_LOGIN_DISABLE_RESET_OPTION );
 }
-add_action( 'add_option_' . SIKORA_LOGIN_DISABLE_RESET_OPTION, 'sikora_login_after_reset_option_saved' );
-add_action( 'update_option_' . SIKORA_LOGIN_DISABLE_RESET_OPTION, 'sikora_login_after_reset_option_saved' );
+add_action( 'add_option_' . SIKORIX_LOGIN_DISABLE_RESET_OPTION, 'sikorix_login_after_reset_option_saved' );
+add_action( 'update_option_' . SIKORIX_LOGIN_DISABLE_RESET_OPTION, 'sikorix_login_after_reset_option_saved' );
 
 /**
  * Clears a stored background attachment ID only when the media was deleted or is SVG.
@@ -535,19 +535,19 @@ add_action( 'update_option_' . SIKORA_LOGIN_DISABLE_RESET_OPTION, 'sikora_login_
  *
  * @return bool True if an invalid value was cleared; false otherwise.
  */
-function sikora_login_clear_invalid_bg_option() {
-	$attachment_id = (int) get_option( SIKORA_LOGIN_BG_OPTION, 0 );
+function sikorix_login_clear_invalid_bg_option() {
+	$attachment_id = (int) get_option( SIKORIX_LOGIN_BG_OPTION, 0 );
 
 	if ( ! $attachment_id ) {
 		return false;
 	}
 
-	if ( sikora_is_allowed_bg_image( $attachment_id ) ) {
+	if ( sikorix_is_allowed_bg_image( $attachment_id ) ) {
 		return false;
 	}
 
-	update_option( SIKORA_LOGIN_BG_OPTION, 0, false );
-	set_transient( SIKORA_LOGIN_INVALID_BG_NOTICE, 1, WEEK_IN_SECONDS );
+	update_option( SIKORIX_LOGIN_BG_OPTION, 0, false );
+	set_transient( SIKORIX_LOGIN_INVALID_BG_NOTICE, 1, WEEK_IN_SECONDS );
 
 	return true;
 }
@@ -559,18 +559,18 @@ function sikora_login_clear_invalid_bg_option() {
  *
  * @return bool True if an invalid value was cleared; false otherwise.
  */
-function sikora_login_clear_invalid_logo_option() {
-	$attachment_id = (int) get_option( SIKORA_LOGIN_LOGO_OPTION, 0 );
+function sikorix_login_clear_invalid_logo_option() {
+	$attachment_id = (int) get_option( SIKORIX_LOGIN_LOGO_OPTION, 0 );
 
 	if ( ! $attachment_id ) {
 		return false;
 	}
 
-	if ( sikora_is_allowed_bg_image( $attachment_id ) ) {
+	if ( sikorix_is_allowed_bg_image( $attachment_id ) ) {
 		return false;
 	}
 
-	update_option( SIKORA_LOGIN_LOGO_OPTION, 0, false );
+	update_option( SIKORIX_LOGIN_LOGO_OPTION, 0, false );
 
 	return true;
 }
@@ -584,27 +584,27 @@ function sikora_login_clear_invalid_logo_option() {
  *
  * @return void
  */
-function sikora_login_activate() {
-	sikora_login_clear_invalid_bg_option();
-	sikora_login_clear_invalid_logo_option();
+function sikorix_login_activate() {
+	sikorix_login_clear_invalid_bg_option();
+	sikorix_login_clear_invalid_logo_option();
 
-	if ( false !== get_option( SIKORA_LOGIN_BG_OPTION, false ) ) {
-		sikora_login_set_option_autoload_no( SIKORA_LOGIN_BG_OPTION );
+	if ( false !== get_option( SIKORIX_LOGIN_BG_OPTION, false ) ) {
+		sikorix_login_set_option_autoload_no( SIKORIX_LOGIN_BG_OPTION );
 	}
 
-	if ( false !== get_option( SIKORA_LOGIN_LOGO_OPTION, false ) ) {
-		sikora_login_set_option_autoload_no( SIKORA_LOGIN_LOGO_OPTION );
+	if ( false !== get_option( SIKORIX_LOGIN_LOGO_OPTION, false ) ) {
+		sikorix_login_set_option_autoload_no( SIKORIX_LOGIN_LOGO_OPTION );
 	}
 
-	if ( ! sikora_login_store_reset_option_default() ) {
-		sikora_login_set_option_autoload_no( SIKORA_LOGIN_DISABLE_RESET_OPTION ); // row already existed
+	if ( ! sikorix_login_store_reset_option_default() ) {
+		sikorix_login_set_option_autoload_no( SIKORIX_LOGIN_DISABLE_RESET_OPTION ); // row already existed
 	}
 
-	if ( ! sikora_login_store_bg_color_default() ) {
-		sikora_login_set_option_autoload_no( SIKORA_LOGIN_BG_COLOR_OPTION ); // row already existed
+	if ( ! sikorix_login_store_bg_color_default() ) {
+		sikorix_login_set_option_autoload_no( SIKORIX_LOGIN_BG_COLOR_OPTION ); // row already existed
 	}
 }
-register_activation_hook( __FILE__, 'sikora_login_activate' );
+register_activation_hook( __FILE__, 'sikorix_login_activate' );
 
 /**
  * Stores the default disable-password-reset value when the option row is missing.
@@ -617,12 +617,12 @@ register_activation_hook( __FILE__, 'sikora_login_activate' );
  *
  * @return bool True when the default was just stored; false when a value already existed.
  */
-function sikora_login_store_reset_option_default() {
-	if ( false !== get_option( SIKORA_LOGIN_DISABLE_RESET_OPTION, false ) ) {
+function sikorix_login_store_reset_option_default() {
+	if ( false !== get_option( SIKORIX_LOGIN_DISABLE_RESET_OPTION, false ) ) {
 		return false;
 	}
 
-	return (bool) add_option( SIKORA_LOGIN_DISABLE_RESET_OPTION, 0, '', 'no' );
+	return (bool) add_option( SIKORIX_LOGIN_DISABLE_RESET_OPTION, 0, '', 'no' );
 }
 
 /**
@@ -636,12 +636,12 @@ function sikora_login_store_reset_option_default() {
  *
  * @return bool True when the default was just stored; false when a value already existed.
  */
-function sikora_login_store_bg_color_default() {
-	if ( false !== get_option( SIKORA_LOGIN_BG_COLOR_OPTION, false ) ) {
+function sikorix_login_store_bg_color_default() {
+	if ( false !== get_option( SIKORIX_LOGIN_BG_COLOR_OPTION, false ) ) {
 		return false;
 	}
 
-	return (bool) add_option( SIKORA_LOGIN_BG_COLOR_OPTION, SIKORA_LOGIN_BG_COLOR_DEFAULT, '', 'no' );
+	return (bool) add_option( SIKORIX_LOGIN_BG_COLOR_OPTION, SIKORIX_LOGIN_BG_COLOR_DEFAULT, '', 'no' );
 }
 
 /**
@@ -655,7 +655,7 @@ function sikora_login_store_bg_color_default() {
  *
  * @return void
  */
-function sikora_login_bootstrap_option_defaults() {
+function sikorix_login_bootstrap_option_defaults() {
 	static $done = false;
 
 	if ( $done ) {
@@ -664,11 +664,11 @@ function sikora_login_bootstrap_option_defaults() {
 
 	$done = true;
 
-	sikora_login_store_reset_option_default();
-	sikora_login_store_bg_color_default();
+	sikorix_login_store_reset_option_default();
+	sikorix_login_store_bg_color_default();
 }
-add_action( 'admin_init', 'sikora_login_bootstrap_option_defaults', 1 );
-add_action( 'login_init', 'sikora_login_bootstrap_option_defaults', 1 );
+add_action( 'admin_init', 'sikorix_login_bootstrap_option_defaults', 1 );
+add_action( 'login_init', 'sikorix_login_bootstrap_option_defaults', 1 );
 
 /**
  * Validates the saved background image during admin requests.
@@ -679,21 +679,21 @@ add_action( 'login_init', 'sikora_login_bootstrap_option_defaults', 1 );
  *
  * @return void
  */
-function sikora_login_admin_validate_saved_bg() {
+function sikorix_login_admin_validate_saved_bg() {
 	// Never run the cleanup during options.php saves — it can race with update_option().
 	global $pagenow;
 	if ( isset( $pagenow ) && 'options.php' === $pagenow ) {
 		return;
 	}
 
-	if ( ! current_user_can( sikora_login_manage_capability() ) ) {
+	if ( ! current_user_can( sikorix_login_manage_capability() ) ) {
 		return;
 	}
 
-	sikora_login_clear_invalid_bg_option();
-	sikora_login_clear_invalid_logo_option();
+	sikorix_login_clear_invalid_bg_option();
+	sikorix_login_clear_invalid_logo_option();
 }
-add_action( 'admin_init', 'sikora_login_admin_validate_saved_bg' );
+add_action( 'admin_init', 'sikorix_login_admin_validate_saved_bg' );
 
 /**
  * Prints admin notices under the settings page title.
@@ -706,7 +706,7 @@ add_action( 'admin_init', 'sikora_login_admin_validate_saved_bg' );
  *
  * @return void
  */
-function sikora_login_print_page_notice() {
+function sikorix_login_print_page_notice() {
 	global $wp_settings_errors;
 
 	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only UI flag from options.php redirect.
@@ -718,9 +718,9 @@ function sikora_login_print_page_notice() {
 	$wp_settings_errors = array();
 	delete_transient( 'settings_errors' );
 
-	$has_invalid_bg = (bool) get_transient( SIKORA_LOGIN_INVALID_BG_NOTICE );
+	$has_invalid_bg = (bool) get_transient( SIKORIX_LOGIN_INVALID_BG_NOTICE );
 	if ( $has_invalid_bg ) {
-		delete_transient( SIKORA_LOGIN_INVALID_BG_NOTICE );
+		delete_transient( SIKORIX_LOGIN_INVALID_BG_NOTICE );
 	}
 
 	$parsed = array();
@@ -751,15 +751,15 @@ function sikora_login_print_page_notice() {
 	}
 
 	if ( $has_invalid_bg ) {
-		$settings_url = admin_url( 'options-general.php?page=login-page-customizer' );
+		$settings_url = admin_url( 'options-general.php?page=sikorix-login-page-customizer' );
 		$parsed[]     = array(
 			'type'    => 'warning',
 			'message' => sprintf(
 				/* translators: %s: URL to the plugin settings page. */
-				__( 'Login Page Customizer cleared an invalid or disallowed background image (for example SVG or a missing file). <a href="%s">Choose a new JPEG, PNG, GIF, or WebP image</a>.', 'login-page-customizer' ),
+				__( 'Sikorix Login Page Customizer cleared an invalid or disallowed background image (for example SVG or a missing file). <a href="%s">Choose a new JPEG, PNG, GIF, or WebP image</a>.', 'sikorix-login-page-customizer' ),
 				esc_url( $settings_url )
 			),
-			'code'    => 'sikora-invalid-bg',
+			'code'    => 'sikorix-invalid-bg',
 		);
 	}
 
@@ -777,7 +777,7 @@ function sikora_login_print_page_notice() {
 	} elseif ( $settings_updated ) {
 		$to_show[] = array(
 			'type'    => 'success',
-			'message' => __( 'Settings saved.', 'login-page-customizer' ),
+			'message' => __( 'Settings saved.', 'sikorix-login-page-customizer' ),
 			'code'    => 'settings-updated',
 		);
 	} else {
@@ -794,7 +794,7 @@ function sikora_login_print_page_notice() {
 		if ( ! empty( $success_notices ) ) {
 			$to_show[] = array(
 				'type'    => 'success',
-				'message' => __( 'Settings saved.', 'login-page-customizer' ),
+				'message' => __( 'Settings saved.', 'sikorix-login-page-customizer' ),
 				'code'    => 'settings-updated',
 			);
 		} else {
@@ -833,20 +833,20 @@ function sikora_login_print_page_notice() {
  *
  * @return void
  */
-function sikora_login_settings_page_load() {
+function sikorix_login_settings_page_load() {
 	remove_action( 'admin_notices', 'settings_errors' );
 	remove_action( 'all_admin_notices', 'settings_errors' );
 
 	// Hide settings notices above the page title; they are printed under the h1 instead.
-	add_action( 'admin_notices', 'sikora_login_buffer_start_admin_notices', 0 );
-	add_action( 'all_admin_notices', 'sikora_login_buffer_start_admin_notices', 0 );
-	add_action( 'admin_notices', 'sikora_login_buffer_end_admin_notices', PHP_INT_MAX );
-	add_action( 'all_admin_notices', 'sikora_login_buffer_end_admin_notices', PHP_INT_MAX );
+	add_action( 'admin_notices', 'sikorix_login_buffer_start_admin_notices', 0 );
+	add_action( 'all_admin_notices', 'sikorix_login_buffer_start_admin_notices', 0 );
+	add_action( 'admin_notices', 'sikorix_login_buffer_end_admin_notices', PHP_INT_MAX );
+	add_action( 'all_admin_notices', 'sikorix_login_buffer_end_admin_notices', PHP_INT_MAX );
 
 	// Core options-head.php prints settings_errors() after all_admin_notices; discard that output.
-	add_action( 'all_admin_notices', 'sikora_login_ob_start_options_head_buffer', PHP_INT_MAX );
+	add_action( 'all_admin_notices', 'sikorix_login_ob_start_options_head_buffer', PHP_INT_MAX );
 }
-add_action( 'load-settings_page_login-page-customizer', 'sikora_login_settings_page_load' );
+add_action( 'load-settings_page_sikorix-login-page-customizer', 'sikorix_login_settings_page_load' );
 
 /**
  * Starts an output buffer around admin notices on this settings screen.
@@ -855,8 +855,8 @@ add_action( 'load-settings_page_login-page-customizer', 'sikora_login_settings_p
  *
  * @return void
  */
-function sikora_login_buffer_start_admin_notices() {
-	if ( ! sikora_login_is_settings_screen() ) {
+function sikorix_login_buffer_start_admin_notices() {
+	if ( ! sikorix_login_is_settings_screen() ) {
 		return;
 	}
 	ob_start();
@@ -869,8 +869,8 @@ function sikora_login_buffer_start_admin_notices() {
  *
  * @return void
  */
-function sikora_login_buffer_end_admin_notices() {
-	if ( ! sikora_login_is_settings_screen() ) {
+function sikorix_login_buffer_end_admin_notices() {
+	if ( ! sikorix_login_is_settings_screen() ) {
 		return;
 	}
 	if ( ob_get_level() > 0 ) {
@@ -885,13 +885,13 @@ function sikora_login_buffer_end_admin_notices() {
  *
  * @return void
  */
-function sikora_login_ob_start_options_head_buffer() {
-	if ( ! sikora_login_is_settings_screen() ) {
+function sikorix_login_ob_start_options_head_buffer() {
+	if ( ! sikorix_login_is_settings_screen() ) {
 		return;
 	}
 
 	ob_start();
-	$GLOBALS['sikora_login_options_head_ob'] = true;
+	$GLOBALS['sikorix_login_options_head_ob'] = true;
 }
 
 /**
@@ -901,12 +901,12 @@ function sikora_login_ob_start_options_head_buffer() {
  *
  * @return void
  */
-function sikora_login_discard_options_head_buffer() {
-	if ( empty( $GLOBALS['sikora_login_options_head_ob'] ) ) {
+function sikorix_login_discard_options_head_buffer() {
+	if ( empty( $GLOBALS['sikorix_login_options_head_ob'] ) ) {
 		return;
 	}
 
-	$GLOBALS['sikora_login_options_head_ob'] = false;
+	$GLOBALS['sikorix_login_options_head_ob'] = false;
 
 	if ( ob_get_level() > 0 ) {
 		ob_end_clean();
@@ -920,13 +920,13 @@ function sikora_login_discard_options_head_buffer() {
  *
  * @return bool
  */
-function sikora_login_is_settings_screen() {
+function sikorix_login_is_settings_screen() {
 	if ( ! function_exists( 'get_current_screen' ) ) {
-		return isset( $_GET['page'] ) && 'login-page-customizer' === $_GET['page']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		return isset( $_GET['page'] ) && 'sikorix-login-page-customizer' === $_GET['page']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 
 	$screen = get_current_screen();
-	return ( $screen && 'settings_page_login-page-customizer' === $screen->id );
+	return ( $screen && 'settings_page_sikorix-login-page-customizer' === $screen->id );
 }
 
 /**
@@ -936,18 +936,18 @@ function sikora_login_is_settings_screen() {
  *
  * @return void
  */
-function sikora_login_print_invalid_bg_notice() {
-	if ( ! current_user_can( sikora_login_manage_capability() ) ) {
+function sikorix_login_print_invalid_bg_notice() {
+	if ( ! current_user_can( sikorix_login_manage_capability() ) ) {
 		return;
 	}
 
-	if ( ! get_transient( SIKORA_LOGIN_INVALID_BG_NOTICE ) ) {
+	if ( ! get_transient( SIKORIX_LOGIN_INVALID_BG_NOTICE ) ) {
 		return;
 	}
 
-	delete_transient( SIKORA_LOGIN_INVALID_BG_NOTICE );
+	delete_transient( SIKORIX_LOGIN_INVALID_BG_NOTICE );
 
-	$settings_url = admin_url( 'options-general.php?page=login-page-customizer' );
+	$settings_url = admin_url( 'options-general.php?page=sikorix-login-page-customizer' );
 	?>
 	<div class="notice notice-warning is-dismissible">
 		<p>
@@ -955,7 +955,7 @@ function sikora_login_print_invalid_bg_notice() {
 			echo wp_kses(
 				sprintf(
 					/* translators: %s: URL to the plugin settings page. */
-					__( 'Login Page Customizer cleared an invalid or disallowed background image (for example SVG or a missing file). <a href="%s">Choose a new JPEG, PNG, GIF, or WebP image</a>.', 'login-page-customizer' ),
+					__( 'Sikorix Login Page Customizer cleared an invalid or disallowed background image (for example SVG or a missing file). <a href="%s">Choose a new JPEG, PNG, GIF, or WebP image</a>.', 'sikorix-login-page-customizer' ),
 					esc_url( $settings_url )
 				),
 				array(
@@ -974,41 +974,41 @@ function sikora_login_print_invalid_bg_notice() {
  * Displays an admin warning when an invalid background image was cleared.
  *
  * On this plugin's settings screen the notice is printed under the page title
- * instead (see {@see sikora_render_settings_page()}).
+ * instead (see {@see sikorix_render_settings_page()}).
  *
  * @since 2.0.0
  *
  * @return void
  */
-function sikora_login_invalid_bg_admin_notice() {
-	if ( sikora_login_is_settings_screen() ) {
+function sikorix_login_invalid_bg_admin_notice() {
+	if ( sikorix_login_is_settings_screen() ) {
 		return;
 	}
 
-	sikora_login_print_invalid_bg_notice();
+	sikorix_login_print_invalid_bg_notice();
 }
-add_action( 'admin_notices', 'sikora_login_invalid_bg_admin_notice' );
+add_action( 'admin_notices', 'sikorix_login_invalid_bg_admin_notice' );
 
 /**
  * Resolves a validated http(s) URL for a background attachment.
  *
- * Ensures the attachment passes {@see sikora_is_allowed_bg_image()} and that the
+ * Ensures the attachment passes {@see sikorix_is_allowed_bg_image()} and that the
  * URL host is one of the allowed site / uploads / content hosts (or a host added
- * via the `sikora_login_allowed_bg_hosts` filter).
+ * via the `sikorix_login_allowed_bg_hosts` filter).
  *
  * @since 2.0.0
  *
  * @param int|null $attachment_id Optional attachment ID. Defaults to the saved option.
  * @return string Validated URL, or an empty string when the image is invalid.
  */
-function sikora_get_validated_bg_url( $attachment_id = null ) {
+function sikorix_get_validated_bg_url( $attachment_id = null ) {
 	if ( null === $attachment_id ) {
-		$attachment_id = (int) get_option( SIKORA_LOGIN_BG_OPTION, 0 );
+		$attachment_id = (int) get_option( SIKORIX_LOGIN_BG_OPTION, 0 );
 	}
 
 	$attachment_id = absint( $attachment_id );
 
-	if ( ! sikora_is_allowed_bg_image( $attachment_id ) ) {
+	if ( ! sikorix_is_allowed_bg_image( $attachment_id ) ) {
 		return '';
 	}
 
@@ -1052,7 +1052,7 @@ function sikora_get_validated_bg_url( $attachment_id = null ) {
 	 * @param string[] $allowed_hosts Lowercased hostnames.
 	 * @param int      $attachment_id Attachment ID being resolved.
 	 */
-	$allowed_hosts = apply_filters( 'sikora_login_allowed_bg_hosts', $allowed_hosts, $attachment_id );
+	$allowed_hosts = apply_filters( 'sikorix_login_allowed_bg_hosts', $allowed_hosts, $attachment_id );
 
 	if ( ! in_array( strtolower( $url_host ), $allowed_hosts, true ) ) {
 		return '';
@@ -1068,16 +1068,16 @@ function sikora_get_validated_bg_url( $attachment_id = null ) {
  *
  * @return void
  */
-function sikora_register_settings_page() {
+function sikorix_register_settings_page() {
 	add_options_page(
-		__( 'Login Page Customizer', 'login-page-customizer' ),
-		__( 'Login Page Customizer', 'login-page-customizer' ),
-		sikora_login_manage_capability(),
-		'login-page-customizer',
-		'sikora_render_settings_page'
+		__( 'Sikorix Login Page Customizer', 'sikorix-login-page-customizer' ),
+		__( 'Sikorix Login Page Customizer', 'sikorix-login-page-customizer' ),
+		sikorix_login_manage_capability(),
+		'sikorix-login-page-customizer',
+		'sikorix_render_settings_page'
 	);
 }
-add_action( 'admin_menu', 'sikora_register_settings_page' );
+add_action( 'admin_menu', 'sikorix_register_settings_page' );
 
 /**
  * Adds a Settings link on the Plugins list row for this plugin.
@@ -1088,22 +1088,22 @@ add_action( 'admin_menu', 'sikora_register_settings_page' );
  * @param string   $plugin_file Plugin basename relative to the plugins directory.
  * @return string[]
  */
-function sikora_login_plugin_action_links( $links, $plugin_file ) {
+function sikorix_login_plugin_action_links( $links, $plugin_file ) {
 	if ( plugin_basename( __FILE__ ) !== $plugin_file ) {
 		return $links;
 	}
 
 	$settings_link = sprintf(
 		'<a href="%s">%s</a>',
-		esc_url( admin_url( 'options-general.php?page=login-page-customizer' ) ),
-		esc_html__( 'Settings', 'login-page-customizer' )
+		esc_url( admin_url( 'options-general.php?page=sikorix-login-page-customizer' ) ),
+		esc_html__( 'Settings', 'sikorix-login-page-customizer' )
 	);
 
 	array_unshift( $links, $settings_link );
 
 	return $links;
 }
-add_filter( 'plugin_action_links', 'sikora_login_plugin_action_links', 10, 2 );
+add_filter( 'plugin_action_links', 'sikorix_login_plugin_action_links', 10, 2 );
 
 /**
  * Registers plugin options with the Settings API.
@@ -1115,13 +1115,13 @@ add_filter( 'plugin_action_links', 'sikora_login_plugin_action_links', 10, 2 );
  *
  * @return void
  */
-function sikora_register_settings() {
+function sikorix_register_settings() {
 	register_setting(
-		'sikora_custom_login_settings_group',
-		SIKORA_LOGIN_LOGO_OPTION,
+		'sikorix_custom_login_settings_group',
+		SIKORIX_LOGIN_LOGO_OPTION,
 		array(
 			'type'              => 'string',
-			'sanitize_callback' => 'sikora_sanitize_logo_image',
+			'sanitize_callback' => 'sikorix_sanitize_logo_image',
 			'default'           => '0',
 			'show_in_rest'      => false,
 			'autoload'          => false,
@@ -1129,11 +1129,11 @@ function sikora_register_settings() {
 	);
 
 	register_setting(
-		'sikora_custom_login_settings_group',
-		SIKORA_LOGIN_BG_OPTION,
+		'sikorix_custom_login_settings_group',
+		SIKORIX_LOGIN_BG_OPTION,
 		array(
 			'type'              => 'string',
-			'sanitize_callback' => 'sikora_sanitize_bg_image',
+			'sanitize_callback' => 'sikorix_sanitize_bg_image',
 			'default'           => '0',
 			'show_in_rest'      => false,
 			'autoload'          => false,
@@ -1141,11 +1141,11 @@ function sikora_register_settings() {
 	);
 
 	register_setting(
-		'sikora_custom_login_settings_group',
-		SIKORA_LOGIN_BG_COLOR_OPTION,
+		'sikorix_custom_login_settings_group',
+		SIKORIX_LOGIN_BG_COLOR_OPTION,
 		array(
 			'type'              => 'string',
-			'sanitize_callback' => 'sikora_sanitize_bg_color',
+			'sanitize_callback' => 'sikorix_sanitize_bg_color',
 			// Do not set 'default' here: when the stored value equals a registered
 			// default, update_option() calls add_option() and the save is skipped
 			// if the row already exists (so picking a color after clearing one
@@ -1156,11 +1156,11 @@ function sikora_register_settings() {
 	);
 
 	register_setting(
-		'sikora_custom_login_settings_group',
-		SIKORA_LOGIN_DISABLE_RESET_OPTION,
+		'sikorix_custom_login_settings_group',
+		SIKORIX_LOGIN_DISABLE_RESET_OPTION,
 		array(
 			'type'              => 'integer',
-			'sanitize_callback' => 'sikora_sanitize_disable_password_reset',
+			'sanitize_callback' => 'sikorix_sanitize_disable_password_reset',
 			// Do not set 'default' here: when the stored value equals a registered
 			// default, update_option() calls add_option() and the save is skipped
 			// if the row already exists (so unchecking Remove would never persist).
@@ -1169,7 +1169,7 @@ function sikora_register_settings() {
 		)
 	);
 }
-add_action( 'admin_init', 'sikora_register_settings' );
+add_action( 'admin_init', 'sikorix_register_settings' );
 
 /**
  * Returns the settings-page CSS that tightens the color picker spacing.
@@ -1183,12 +1183,12 @@ add_action( 'admin_init', 'sikora_register_settings' );
  *
  * @return string CSS, no enclosing <style> tag.
  */
-function sikora_login_admin_inline_css() {
+function sikorix_login_admin_inline_css() {
 	return '
-.sikora-bg-color-cell .wp-picker-container{display:block;}
-.sikora-bg-color-cell .wp-picker-holder{line-height:0;}
-.sikora-bg-color-cell .wp-picker-container .iris-picker{margin-top:4px!important;margin-bottom:0!important;}
-.sikora-bg-color-cell p.description{margin-top:4px!important;}
+.sikorix-bg-color-cell .wp-picker-container{display:block;}
+.sikorix-bg-color-cell .wp-picker-holder{line-height:0;}
+.sikorix-bg-color-cell .wp-picker-container .iris-picker{margin-top:4px!important;margin-bottom:0!important;}
+.sikorix-bg-color-cell p.description{margin-top:4px!important;}
 ';
 }
 
@@ -1200,8 +1200,8 @@ function sikora_login_admin_inline_css() {
  * @param string $hook Current admin page hook suffix.
  * @return void
  */
-function sikora_enqueue_admin_scripts( $hook ) {
-	if ( 'settings_page_login-page-customizer' !== $hook ) {
+function sikorix_enqueue_admin_scripts( $hook ) {
+	if ( 'settings_page_sikorix-login-page-customizer' !== $hook ) {
 		return;
 	}
 
@@ -1209,49 +1209,49 @@ function sikora_enqueue_admin_scripts( $hook ) {
 	wp_enqueue_style( 'wp-color-picker' );
 
 	// No src: the handle exists only to carry the inline CSS below.
-	wp_register_style( 'login-page-customizer-admin', false, array( 'wp-color-picker' ), SIKORA_LOGIN_VERSION );
-	wp_enqueue_style( 'login-page-customizer-admin' );
-	wp_add_inline_style( 'login-page-customizer-admin', sikora_login_admin_inline_css() );
+	wp_register_style( 'sikorix-login-page-customizer-admin', false, array( 'wp-color-picker' ), SIKORIX_LOGIN_VERSION );
+	wp_enqueue_style( 'sikorix-login-page-customizer-admin' );
+	wp_add_inline_style( 'sikorix-login-page-customizer-admin', sikorix_login_admin_inline_css() );
 
-	$admin_script_ver = sikora_login_asset_version( 'assets/admin.js' );
+	$admin_script_ver = sikorix_login_asset_version( 'assets/admin.js' );
 
 	wp_register_script(
-		'login-page-customizer-admin',
-		SIKORA_LOGIN_PLUGIN_URL . 'assets/admin.js',
+		'sikorix-login-page-customizer-admin',
+		SIKORIX_LOGIN_PLUGIN_URL . 'assets/admin.js',
 		array( 'jquery', 'media-editor', 'wp-color-picker' ),
 		$admin_script_ver,
 		true
 	);
-	wp_enqueue_script( 'login-page-customizer-admin' );
+	wp_enqueue_script( 'sikorix-login-page-customizer-admin' );
 }
-add_action( 'admin_enqueue_scripts', 'sikora_enqueue_admin_scripts' );
+add_action( 'admin_enqueue_scripts', 'sikorix_enqueue_admin_scripts' );
 
 /**
  * Renders the plugin settings page markup.
  *
  * Outputs the business logo picker, background image picker, the background color
  * picker, and the optional password-reset toggle.
- * Requires {@see sikora_login_manage_capability()}.
+ * Requires {@see sikorix_login_manage_capability()}.
  *
  * @since 2.0.0
  *
  * @return void
  */
-function sikora_render_settings_page() {
-	if ( ! current_user_can( sikora_login_manage_capability() ) ) {
+function sikorix_render_settings_page() {
+	if ( ! current_user_can( sikorix_login_manage_capability() ) ) {
 		return;
 	}
 
-	sikora_login_discard_options_head_buffer();
+	sikorix_login_discard_options_head_buffer();
 
-	$logo_id       = (int) get_option( SIKORA_LOGIN_LOGO_OPTION, 0 );
+	$logo_id       = (int) get_option( SIKORIX_LOGIN_LOGO_OPTION, 0 );
 	$current_logo  = '';
-	$attachment_id = (int) get_option( SIKORA_LOGIN_BG_OPTION, 0 );
+	$attachment_id = (int) get_option( SIKORIX_LOGIN_BG_OPTION, 0 );
 	$current_image = '';
-	$bg_color      = sikora_login_get_bg_color();
+	$bg_color      = sikorix_login_get_bg_color();
 
 	if ( $logo_id ) {
-		$current_logo = sikora_get_validated_bg_url( $logo_id );
+		$current_logo = sikorix_get_validated_bg_url( $logo_id );
 
 		if ( ! $current_logo ) {
 			$fallback = wp_get_attachment_image_url( $logo_id, 'thumbnail' );
@@ -1270,7 +1270,7 @@ function sikora_render_settings_page() {
 
 	if ( $attachment_id ) {
 		// Always try to show a preview for a stored Media Library image.
-		$current_image = sikora_get_validated_bg_url( $attachment_id );
+		$current_image = sikorix_get_validated_bg_url( $attachment_id );
 
 		if ( ! $current_image ) {
 			$fallback = wp_get_attachment_image_url( $attachment_id, 'medium' );
@@ -1288,53 +1288,53 @@ function sikora_render_settings_page() {
 	}
 	?>
 	<div class="wrap">
-		<h1 style="font-weight:700;"><?php esc_html_e( 'Login Page Customizer', 'login-page-customizer' ); ?></h1>
-		<?php sikora_login_print_page_notice(); ?>
+		<h1 style="font-weight:700;"><?php esc_html_e( 'Sikorix Login Page Customizer', 'sikorix-login-page-customizer' ); ?></h1>
+		<?php sikorix_login_print_page_notice(); ?>
 		<form method="post" action="options.php">
-			<?php settings_fields( 'sikora_custom_login_settings_group' ); ?>
+			<?php settings_fields( 'sikorix_custom_login_settings_group' ); ?>
 
 			<table class="form-table" role="presentation">
 				<tr>
 					<th scope="row">
-						<label for="sikora-logo-image-id">
-							<?php esc_html_e( 'Business Logo', 'login-page-customizer' ); ?>
+						<label for="sikorix-logo-image-id">
+							<?php esc_html_e( 'Business Logo', 'sikorix-login-page-customizer' ); ?>
 						</label>
 					</th>
 					<td>
 						<img
-							id="sikora-logo-preview"
+							id="sikorix-logo-preview"
 							src="<?php echo $current_logo ? esc_url( $current_logo, array( 'http', 'https' ) ) : ''; ?>"
-							alt="<?php echo $current_logo ? esc_attr__( 'Current Login Page Customizer business logo', 'login-page-customizer' ) : ''; ?>"
+							alt="<?php echo $current_logo ? esc_attr__( 'Current Sikorix Login Page Customizer business logo', 'sikorix-login-page-customizer' ) : ''; ?>"
 							style="max-width:84px; max-height:84px; margin-bottom:10px; <?php echo $current_logo ? 'display:block;' : 'display:none;'; ?>"
 						>
 
 						<input
 							type="hidden"
-							id="sikora-logo-image-id"
-							name="<?php echo esc_attr( SIKORA_LOGIN_LOGO_OPTION ); ?>"
+							id="sikorix-logo-image-id"
+							name="<?php echo esc_attr( SIKORIX_LOGIN_LOGO_OPTION ); ?>"
 							value="<?php echo esc_attr( $logo_id ); ?>"
 						>
 
-						<button type="button" id="sikora-choose-logo" class="button button-secondary">
-							<?php esc_html_e( 'Choose Logo', 'login-page-customizer' ); ?>
+						<button type="button" id="sikorix-choose-logo" class="button button-secondary">
+							<?php esc_html_e( 'Choose Logo', 'sikorix-login-page-customizer' ); ?>
 						</button>
 
 						<button
 							type="button"
-							id="sikora-remove-logo"
+							id="sikorix-remove-logo"
 							class="button button-link-delete"
 							style="margin-left:10px;<?php echo ( $current_logo || $logo_id ) ? '' : ' display:none;'; ?>"
 						>
-							<?php esc_html_e( 'Remove Logo', 'login-page-customizer' ); ?>
+							<?php esc_html_e( 'Remove Logo', 'sikorix-login-page-customizer' ); ?>
 						</button>
 
 						<p class="description">
 							<?php
 							printf(
 								/* translators: 1: logo width in pixels, 2: logo height in pixels. */
-								esc_html__( 'Maximum display size: %1$d×%2$d pixels. Larger images are scaled down to fit. Only JPEG, PNG, GIF, or WebP images can be selected.', 'login-page-customizer' ),
-								(int) SIKORA_LOGIN_LOGO_SIZE,
-								(int) SIKORA_LOGIN_LOGO_SIZE
+								esc_html__( 'Maximum display size: %1$d×%2$d pixels. Larger images are scaled down to fit. Only JPEG, PNG, GIF, or WebP images can be selected.', 'sikorix-login-page-customizer' ),
+								(int) SIKORIX_LOGIN_LOGO_SIZE,
+								(int) SIKORIX_LOGIN_LOGO_SIZE
 							);
 							?>
 						</p>
@@ -1342,89 +1342,89 @@ function sikora_render_settings_page() {
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="sikora-bg-image-id">
-							<?php esc_html_e( 'Background Image', 'login-page-customizer' ); ?>
+						<label for="sikorix-bg-image-id">
+							<?php esc_html_e( 'Background Image', 'sikorix-login-page-customizer' ); ?>
 						</label>
 					</th>
 					<td>
 						<img
-							id="sikora-image-preview"
+							id="sikorix-image-preview"
 							src="<?php echo $current_image ? esc_url( $current_image, array( 'http', 'https' ) ) : ''; ?>"
-							alt="<?php echo $current_image ? esc_attr__( 'Current Login Page Customizer background', 'login-page-customizer' ) : ''; ?>"
+							alt="<?php echo $current_image ? esc_attr__( 'Current Sikorix Login Page Customizer background', 'sikorix-login-page-customizer' ) : ''; ?>"
 							style="max-width:300px; margin-bottom:10px; <?php echo $current_image ? 'display:block;' : 'display:none;'; ?>"
 						>
 
 						<input
 							type="hidden"
-							id="sikora-bg-image-id"
-							name="<?php echo esc_attr( SIKORA_LOGIN_BG_OPTION ); ?>"
+							id="sikorix-bg-image-id"
+							name="<?php echo esc_attr( SIKORIX_LOGIN_BG_OPTION ); ?>"
 							value="<?php echo esc_attr( $attachment_id ); ?>"
 						>
 
-						<button type="button" id="sikora-choose-image" class="button button-secondary">
-							<?php esc_html_e( 'Choose Image', 'login-page-customizer' ); ?>
+						<button type="button" id="sikorix-choose-image" class="button button-secondary">
+							<?php esc_html_e( 'Choose Image', 'sikorix-login-page-customizer' ); ?>
 						</button>
 
 						<button
 							type="button"
-							id="sikora-remove-image"
+							id="sikorix-remove-image"
 							class="button button-link-delete"
 							style="margin-left:10px;<?php echo ( $current_image || $attachment_id ) ? '' : ' display:none;'; ?>"
 						>
-							<?php esc_html_e( 'Remove Image', 'login-page-customizer' ); ?>
+							<?php esc_html_e( 'Remove Image', 'sikorix-login-page-customizer' ); ?>
 						</button>
 
 						<p class="description">
-							<?php esc_html_e( 'Only JPEG, PNG, GIF, or WebP images can be selected.', 'login-page-customizer' ); ?>
+							<?php esc_html_e( 'Only JPEG, PNG, GIF, or WebP images can be selected.', 'sikorix-login-page-customizer' ); ?>
 						</p>
 					</td>
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="sikora-bg-color">
-							<?php esc_html_e( 'Background Color', 'login-page-customizer' ); ?>
+						<label for="sikorix-bg-color">
+							<?php esc_html_e( 'Background Color', 'sikorix-login-page-customizer' ); ?>
 						</label>
 					</th>
-					<td class="sikora-bg-color-cell">
+					<td class="sikorix-bg-color-cell">
 						<input
 							type="text"
-							id="sikora-bg-color"
-							class="sikora-color-field"
-							name="<?php echo esc_attr( SIKORA_LOGIN_BG_COLOR_OPTION ); ?>"
+							id="sikorix-bg-color"
+							class="sikorix-color-field"
+							name="<?php echo esc_attr( SIKORIX_LOGIN_BG_COLOR_OPTION ); ?>"
 							value="<?php echo esc_attr( $bg_color ); ?>"
-							data-default-color="<?php echo esc_attr( SIKORA_LOGIN_BG_COLOR_DEFAULT ); ?>"
+							data-default-color="<?php echo esc_attr( SIKORIX_LOGIN_BG_COLOR_DEFAULT ); ?>"
 						>
 
 						<p class="description">
-							<?php esc_html_e( 'The selected color is only used when no background image is selected.', 'login-page-customizer' ); ?>
+							<?php esc_html_e( 'The selected color is only used when no background image is selected.', 'sikorix-login-page-customizer' ); ?>
 						</p>
 					</td>
 				</tr>
 				<tr>
 					<th scope="row">
-						<?php esc_html_e( 'Password Reset Link', 'login-page-customizer' ); ?>
+						<?php esc_html_e( 'Password Reset Link', 'sikorix-login-page-customizer' ); ?>
 					</th>
 					<td>
 						<?php
 						// Hidden field must stay outside the checkbox so an unchecked
 						// state always submits 0 (same-name fields: last value wins).
 						?>
-						<input type="hidden" name="<?php echo esc_attr( SIKORA_LOGIN_DISABLE_RESET_OPTION ); ?>" value="0">
-						<label for="sikora-disable-password-reset">
+						<input type="hidden" name="<?php echo esc_attr( SIKORIX_LOGIN_DISABLE_RESET_OPTION ); ?>" value="0">
+						<label for="sikorix-disable-password-reset">
 							<input
 								type="checkbox"
-								id="sikora-disable-password-reset"
-								name="<?php echo esc_attr( SIKORA_LOGIN_DISABLE_RESET_OPTION ); ?>"
+								id="sikorix-disable-password-reset"
+								name="<?php echo esc_attr( SIKORIX_LOGIN_DISABLE_RESET_OPTION ); ?>"
 								value="1"
-								<?php checked( sikora_login_is_password_reset_disabled() ); ?>
+								<?php checked( sikorix_login_is_password_reset_disabled() ); ?>
 							>
-							<?php esc_html_e( 'Remove', 'login-page-customizer' ); ?>
+							<?php esc_html_e( 'Remove', 'sikorix-login-page-customizer' ); ?>
 						</label>
 					</td>
 				</tr>
 			</table>
 
-			<?php submit_button( __( 'Save Settings', 'login-page-customizer' ) ); ?>
+			<?php submit_button( __( 'Save Settings', 'sikorix-login-page-customizer' ) ); ?>
 		</form>
 	</div>
 	<?php
@@ -1450,24 +1450,24 @@ function sikora_render_settings_page() {
  *
  * @return void
  */
-function sikora_login_custom_styles() {
+function sikorix_login_custom_styles() {
 	// No src: the handle exists only to carry the inline CSS below.
-	wp_register_style( 'login-page-customizer', false, array( 'login' ), SIKORA_LOGIN_VERSION );
-	wp_enqueue_style( 'login-page-customizer' );
+	wp_register_style( 'sikorix-login-page-customizer', false, array( 'login' ), SIKORIX_LOGIN_VERSION );
+	wp_enqueue_style( 'sikorix-login-page-customizer' );
 
-	$stylesheet = SIKORA_LOGIN_PLUGIN_DIR . 'assets/login.css';
+	$stylesheet = SIKORIX_LOGIN_PLUGIN_DIR . 'assets/login.css';
 
 	if ( is_readable( $stylesheet ) ) {
 		$css = file_get_contents( $stylesheet ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- local plugin asset, not a remote request.
 
 		if ( is_string( $css ) && '' !== $css ) {
 			// Defensive: a stray "</style>" in the asset would break out of the tag.
-			wp_add_inline_style( 'login-page-customizer', str_replace( '</', '<\/', $css ) );
+			wp_add_inline_style( 'sikorix-login-page-customizer', str_replace( '</', '<\/', $css ) );
 		}
 	}
 
-	$bg_image = sikora_get_validated_bg_url();
-	$logo_url = sikora_get_validated_bg_url( (int) get_option( SIKORA_LOGIN_LOGO_OPTION, 0 ) );
+	$bg_image = sikorix_get_validated_bg_url();
+	$logo_url = sikorix_get_validated_bg_url( (int) get_option( SIKORIX_LOGIN_LOGO_OPTION, 0 ) );
 	$rules    = array();
 
 	// Image wins; the color is only a fallback for when no image is set.
@@ -1477,7 +1477,7 @@ function sikora_login_custom_styles() {
 			esc_url( $bg_image, array( 'http', 'https' ) )
 		);
 	} else {
-		$bg_color = sikora_login_get_bg_color();
+		$bg_color = sikorix_login_get_bg_color();
 
 		if ( $bg_color ) {
 			$rules[] = sprintf(
@@ -1488,9 +1488,9 @@ function sikora_login_custom_styles() {
 	}
 
 	if ( $logo_url ) {
-		$size    = (int) SIKORA_LOGIN_LOGO_SIZE;
+		$size    = (int) SIKORIX_LOGIN_LOGO_SIZE;
 		$rules[] = sprintf(
-			'body.login.sikora-has-logo h1.wp-login-logo a{background-image:url("%1$s") !important;background-size:contain !important;background-position:center center !important;background-repeat:no-repeat !important;width:%2$dpx !important;height:%2$dpx !important;}',
+			'body.login.sikorix-has-logo h1.wp-login-logo a{background-image:url("%1$s") !important;background-size:contain !important;background-position:center center !important;background-repeat:no-repeat !important;width:%2$dpx !important;height:%2$dpx !important;}',
 			esc_url( $logo_url, array( 'http', 'https' ) ),
 			$size
 		);
@@ -1500,9 +1500,9 @@ function sikora_login_custom_styles() {
 		return;
 	}
 
-	wp_add_inline_style( 'login-page-customizer', implode( '', $rules ) );
+	wp_add_inline_style( 'sikorix-login-page-customizer', implode( '', $rules ) );
 }
-add_action( 'login_enqueue_scripts', 'sikora_login_custom_styles' );
+add_action( 'login_enqueue_scripts', 'sikorix_login_custom_styles' );
 
 /**
  * Whether password reset on wp-login.php is disabled in plugin settings.
@@ -1511,14 +1511,14 @@ add_action( 'login_enqueue_scripts', 'sikora_login_custom_styles' );
  *
  * @return bool True when the "Remove" password-reset checkbox is checked.
  */
-function sikora_login_is_password_reset_disabled() {
-	return 1 === (int) get_option( SIKORA_LOGIN_DISABLE_RESET_OPTION, 0 ); // unchecked by default
+function sikorix_login_is_password_reset_disabled() {
+	return 1 === (int) get_option( SIKORIX_LOGIN_DISABLE_RESET_OPTION, 0 ); // unchecked by default
 }
 
 /**
  * Adds body classes reflecting the password-reset and background settings.
  *
- * `sikora-light-links` drives the white footer-link styling, so it is only added
+ * `sikorix-light-links` drives the white footer-link styling, so it is only added
  * when the active background is dark enough for white text to be legible.
  *
  * @since 2.0.0
@@ -1526,26 +1526,26 @@ function sikora_login_is_password_reset_disabled() {
  * @param string[] $classes Login body classes.
  * @return string[]
  */
-function sikora_login_body_class( $classes ) {
-	if ( sikora_login_is_password_reset_disabled() ) {
-		$classes[] = 'sikora-password-reset-disabled';
+function sikorix_login_body_class( $classes ) {
+	if ( sikorix_login_is_password_reset_disabled() ) {
+		$classes[] = 'sikorix-password-reset-disabled';
 	}
 
-	if ( sikora_get_validated_bg_url( (int) get_option( SIKORA_LOGIN_LOGO_OPTION, 0 ) ) ) {
-		$classes[] = 'sikora-has-logo';
+	if ( sikorix_get_validated_bg_url( (int) get_option( SIKORIX_LOGIN_LOGO_OPTION, 0 ) ) ) {
+		$classes[] = 'sikorix-has-logo';
 	}
 
-	if ( sikora_get_validated_bg_url() ) {
-		$classes[] = 'sikora-has-bg';
-		$classes[] = 'sikora-light-links'; // photos get a dark base color underneath
-	} elseif ( sikora_login_is_dark_color( sikora_login_get_bg_color() ) ) {
+	if ( sikorix_get_validated_bg_url() ) {
+		$classes[] = 'sikorix-has-bg';
+		$classes[] = 'sikorix-light-links'; // photos get a dark base color underneath
+	} elseif ( sikorix_login_is_dark_color( sikorix_login_get_bg_color() ) ) {
 		// Only switch the footer links to white when the color is dark enough.
-		$classes[] = 'sikora-light-links';
+		$classes[] = 'sikorix-light-links';
 	}
 
 	return $classes;
 }
-add_filter( 'login_body_class', 'sikora_login_body_class' );
+add_filter( 'login_body_class', 'sikorix_login_body_class' );
 
 /**
  * Removes the "Lost your password?" HTML link when password reset is disabled.
@@ -1555,14 +1555,14 @@ add_filter( 'login_body_class', 'sikora_login_body_class' );
  * @param string $html_link Default lost-password link markup.
  * @return string Empty string when disabled; otherwise the original link.
  */
-function sikora_login_filter_lost_password_html_link( $html_link ) {
-	if ( sikora_login_is_password_reset_disabled() ) {
+function sikorix_login_filter_lost_password_html_link( $html_link ) {
+	if ( sikorix_login_is_password_reset_disabled() ) {
 		return '';
 	}
 
 	return $html_link;
 }
-add_filter( 'lost_password_html_link', 'sikora_login_filter_lost_password_html_link' );
+add_filter( 'lost_password_html_link', 'sikorix_login_filter_lost_password_html_link' );
 
 /**
  * Drops the login nav link separator when the lost-password link is suppressed.
@@ -1574,14 +1574,14 @@ add_filter( 'lost_password_html_link', 'sikora_login_filter_lost_password_html_l
  * @param string $separator Default separator between login nav links.
  * @return string Empty string when reset is disabled; otherwise the original separator.
  */
-function sikora_login_filter_login_link_separator( $separator ) {
-	if ( sikora_login_is_password_reset_disabled() ) {
+function sikorix_login_filter_login_link_separator( $separator ) {
+	if ( sikorix_login_is_password_reset_disabled() ) {
 		return '';
 	}
 
 	return $separator;
 }
-add_filter( 'login_link_separator', 'sikora_login_filter_login_link_separator' );
+add_filter( 'login_link_separator', 'sikorix_login_filter_login_link_separator' );
 
 /**
  * Redirects password-reset login actions when that setting is enabled.
@@ -1589,24 +1589,24 @@ add_filter( 'login_link_separator', 'sikora_login_filter_login_link_separator' )
  * Hooked to `login_form_lostpassword`, `login_form_retrievepassword`,
  * `login_form_resetpass`, and `login_form_rp` so the blocked action is known
  * without reading `$_REQUEST` (avoids nonce-verification sniff false positives).
- * Does nothing when {@see SIKORA_LOGIN_DISABLE_RESET_OPTION} is off.
+ * Does nothing when {@see SIKORIX_LOGIN_DISABLE_RESET_OPTION} is off.
  *
  * @since 2.0.0
  *
  * @return void
  */
-function sikora_maybe_disable_lost_password() {
-	if ( ! sikora_login_is_password_reset_disabled() ) {
+function sikorix_maybe_disable_lost_password() {
+	if ( ! sikorix_login_is_password_reset_disabled() ) {
 		return;
 	}
 
 	wp_safe_redirect( wp_login_url() );
 	exit;
 }
-add_action( 'login_form_lostpassword', 'sikora_maybe_disable_lost_password' );
-add_action( 'login_form_retrievepassword', 'sikora_maybe_disable_lost_password' );
-add_action( 'login_form_resetpass', 'sikora_maybe_disable_lost_password' );
-add_action( 'login_form_rp', 'sikora_maybe_disable_lost_password' );
+add_action( 'login_form_lostpassword', 'sikorix_maybe_disable_lost_password' );
+add_action( 'login_form_retrievepassword', 'sikorix_maybe_disable_lost_password' );
+add_action( 'login_form_resetpass', 'sikorix_maybe_disable_lost_password' );
+add_action( 'login_form_rp', 'sikorix_maybe_disable_lost_password' );
 
 /**
  * Filters the login logo URL to the site home URL.
@@ -1617,10 +1617,10 @@ add_action( 'login_form_rp', 'sikora_maybe_disable_lost_password' );
  *
  * @return string Home URL.
  */
-function sikora_login_logo_url() {
+function sikorix_login_logo_url() {
 	return home_url();
 }
-add_filter( 'login_headerurl', 'sikora_login_logo_url' );
+add_filter( 'login_headerurl', 'sikorix_login_logo_url' );
 
 /**
  * Filters the login logo title/text to the site name.
@@ -1631,8 +1631,8 @@ add_filter( 'login_headerurl', 'sikora_login_logo_url' );
  *
  * @return string Blog name.
  */
-function sikora_login_logo_url_title() {
+function sikorix_login_logo_url_title() {
 	return get_bloginfo( 'name' );
 }
-add_filter( 'login_headertext', 'sikora_login_logo_url_title' );
-add_filter( 'login_headertitle', 'sikora_login_logo_url_title' );
+add_filter( 'login_headertext', 'sikorix_login_logo_url_title' );
+add_filter( 'login_headertitle', 'sikorix_login_logo_url_title' );

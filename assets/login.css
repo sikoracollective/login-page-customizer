@@ -25,7 +25,7 @@ body.login {
  * legible while a large image downloads or if it fails to load. Without an
  * image the page keeps core's light background and core's link colors.
  */
-body.login.sikora-has-bg {
+body.login.sikorix-has-bg {
 	background-color: #1d2327 !important;
 }
 
@@ -58,7 +58,7 @@ body.login.sikora-has-bg {
 }
 
 /* body already has class "login" — do not require a nested .login descendant. */
-body.login.sikora-has-logo h1.wp-login-logo {
+body.login.sikorix-has-logo h1.wp-login-logo {
 	display: block !important;
 }
 
@@ -77,20 +77,20 @@ body.login.sikora-has-logo h1.wp-login-logo {
  * Only applied when the background is dark (any photo, or a dark color); on a
  * light background color the core link colors are left alone.
  */
-body.sikora-light-links #nav a,
-body.sikora-light-links #backtoblog a,
-body.sikora-light-links .privacy-policy-page-link a {
+body.sikorix-light-links #nav a,
+body.sikorix-light-links #backtoblog a,
+body.sikorix-light-links .privacy-policy-page-link a {
 	color: #fff !important;
 	background: none !important;
 	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), 0 0 6px rgba(0, 0, 0, 0.7);
 }
 
-body.sikora-light-links #nav a:hover,
-body.sikora-light-links #nav a:focus,
-body.sikora-light-links #backtoblog a:hover,
-body.sikora-light-links #backtoblog a:focus,
-body.sikora-light-links .privacy-policy-page-link a:hover,
-body.sikora-light-links .privacy-policy-page-link a:focus {
+body.sikorix-light-links #nav a:hover,
+body.sikorix-light-links #nav a:focus,
+body.sikorix-light-links #backtoblog a:hover,
+body.sikorix-light-links #backtoblog a:focus,
+body.sikorix-light-links .privacy-policy-page-link a:hover,
+body.sikorix-light-links .privacy-policy-page-link a:focus {
 	color: #fff !important;
 	background: none !important;
 }
@@ -118,7 +118,7 @@ body.sikora-light-links .privacy-policy-page-link a:focus {
 }
 
 /* Only hide the lost-password link when the "Remove" setting is checked. */
-body.sikora-password-reset-disabled a.wp-login-lost-password {
+body.sikorix-password-reset-disabled a.wp-login-lost-password {
 	display: none !important;
 }
 
@@ -134,7 +134,7 @@ body.sikora-password-reset-disabled a.wp-login-lost-password {
 /*
  * Core colors #nav and #backtoblog links #50575e but leaves the Privacy Policy
  * link on the generic blue link color, so match it to the other two. The
- * sikora-light-links rules above already turn all three white together.
+ * sikorix-light-links rules above already turn all three white together.
  */
 .login .privacy-policy-page-link a {
 	color: #50575e;

@@ -2,9 +2,9 @@
 /**
  * PHPUnit result printer without progress dots.
  *
- * Verdict lines are printed by {@see Sikora_Login_Test_Logger}.
+ * Verdict lines are printed by {@see Sikorix_Login_Test_Logger}.
  *
- * @package LoginPageCustomizer
+ * @package SikorixLoginPageCustomizer
  */
 
 use PHPUnit\TextUI\DefaultResultPrinter;
@@ -12,7 +12,7 @@ use PHPUnit\TextUI\DefaultResultPrinter;
 /**
  * Suppresses `.` / `F` progress markers on stdout.
  */
-class Sikora_Login_Result_Printer extends DefaultResultPrinter {
+class Sikorix_Login_Result_Printer extends DefaultResultPrinter {
 
 	/**
 	 * @param string $progress Progress character.

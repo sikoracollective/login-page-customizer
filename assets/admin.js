@@ -95,25 +95,25 @@
     }
 
     bindImagePicker({
-        chooseBtn: '#sikora-choose-logo',
-        removeBtn: '#sikora-remove-logo',
-        field: '#sikora-logo-image-id',
-        preview: '#sikora-logo-preview',
-        title: 'Login Page Customizer — Choose Business Logo',
-        previewAlt: 'Current Login Page Customizer business logo'
+        chooseBtn: '#sikorix-choose-logo',
+        removeBtn: '#sikorix-remove-logo',
+        field: '#sikorix-logo-image-id',
+        preview: '#sikorix-logo-preview',
+        title: 'Sikorix Login Page Customizer — Choose Business Logo',
+        previewAlt: 'Current Sikorix Login Page Customizer business logo'
     });
 
     bindImagePicker({
-        chooseBtn: '#sikora-choose-image',
-        removeBtn: '#sikora-remove-image',
-        field: '#sikora-bg-image-id',
-        preview: '#sikora-image-preview',
-        title: 'Login Page Customizer — Choose Background Image',
-        previewAlt: 'Current Login Page Customizer background'
+        chooseBtn: '#sikorix-choose-image',
+        removeBtn: '#sikorix-remove-image',
+        field: '#sikorix-bg-image-id',
+        preview: '#sikorix-image-preview',
+        title: 'Sikorix Login Page Customizer — Choose Background Image',
+        previewAlt: 'Current Sikorix Login Page Customizer background'
     });
 
     // Background color picker (Iris); clearing it falls back to the WordPress default.
     if ($.fn.wpColorPicker) {
-        $('.sikora-color-field').wpColorPicker();
+        $('.sikorix-color-field').wpColorPicker();
     }
 })(jQuery);

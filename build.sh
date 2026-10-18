@@ -3,11 +3,40 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PLUGIN_SLUG="login-page-customizer"
-MAIN_FILE="${ROOT_DIR}/${PLUGIN_SLUG}.php"
 
-if [[ ! -f "${MAIN_FILE}" ]]; then
-	echo "error: missing main plugin file: ${MAIN_FILE}" >&2
+# Prefer the main plugin file whose basename matches Text Domain.
+MAIN_FILE="$(
+	find "${ROOT_DIR}" -maxdepth 1 -type f -name '*.php' -print \
+		| while IFS= read -r candidate; do
+			if grep -Eq '^[[:space:]]*\*[[:space:]]*Plugin Name:' "${candidate}" \
+				&& grep -Eq '^[[:space:]]*\*[[:space:]]*Text Domain:' "${candidate}"; then
+				echo "${candidate}"
+				break
+			fi
+		done
+)"
+
+if [[ -z "${MAIN_FILE}" || ! -f "${MAIN_FILE}" ]]; then
+	echo "error: could not find main plugin PHP file with Plugin Name and Text Domain headers" >&2
+	exit 1
+fi
+
+# Slug comes from Text Domain so the ZIP always matches the plugin identity.
+PLUGIN_SLUG="$(
+	grep -E '^[[:space:]]*\*[[:space:]]*Text Domain:[[:space:]]*' "${MAIN_FILE}" \
+		| head -n 1 \
+		| sed -E 's/^[[:space:]]*\*[[:space:]]*Text Domain:[[:space:]]*//' \
+		| tr -d '[:space:]'
+)"
+
+if [[ -z "${PLUGIN_SLUG}" ]]; then
+	echo "error: could not read Text Domain from ${MAIN_FILE}" >&2
+	exit 1
+fi
+
+EXPECTED_MAIN="${ROOT_DIR}/${PLUGIN_SLUG}.php"
+if [[ "${MAIN_FILE}" != "${EXPECTED_MAIN}" ]]; then
+	echo "error: main file must be named ${PLUGIN_SLUG}.php (found $(basename "${MAIN_FILE}"))" >&2
 	exit 1
 fi
 
@@ -68,5 +97,6 @@ echo "Files included: ${FILE_COUNT}"
 unzip -Z1 "${ZIP_PATH}" | sort | while IFS= read -r entry; do
 	# Skip directory-only entries for a cleaner file list.
 	[[ "${entry}" == */ ]] && continue
-	echo "  ${entry}"
+	# Strip the plugin root directory from the printed path.
+	echo "  ${entry#"${PLUGIN_SLUG}/"}"
 done

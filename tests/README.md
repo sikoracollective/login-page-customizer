@@ -1,4 +1,4 @@
-# Login Page Customizer tests
+# Sikorix Login Page Customizer tests
 
 PHPUnit integration tests for the plugin. This directory is **not** included in the distributable ZIP (`build.sh` only packs plugin runtime files).
 
