@@ -1,8 +1,8 @@
 <?php
 /**
- * PHPUnit bootstrap for Login Page Customizer.
+ * PHPUnit bootstrap for Sikorix Login Page Customizer.
  *
- * @package LoginPageCustomizer
+ * @package SikorixLoginPageCustomizer
  */
 
 define( 'TESTS_PLUGIN_DIR', dirname( __DIR__ ) );
@@ -40,12 +40,12 @@ require_once $_tests_dir . '/includes/functions.php';
  *
  * @return void
  */
-function sikora_login_tests_manually_load_plugin() {
-	require TESTS_PLUGIN_DIR . '/login-page-customizer.php';
+function sikorix_login_tests_manually_load_plugin() {
+	require TESTS_PLUGIN_DIR . '/sikorix-login-page-customizer.php';
 }
-tests_add_filter( 'muplugins_loaded', 'sikora_login_tests_manually_load_plugin' );
+tests_add_filter( 'muplugins_loaded', 'sikorix_login_tests_manually_load_plugin' );
 
 require $_tests_dir . '/includes/bootstrap.php';
 
-require_once __DIR__ . '/includes/class-sikora-login-test-case.php';
-require_once __DIR__ . '/includes/class-sikora-login-result-printer.php';
+require_once __DIR__ . '/includes/class-sikorix-login-test-case.php';
+require_once __DIR__ . '/includes/class-sikorix-login-result-printer.php';

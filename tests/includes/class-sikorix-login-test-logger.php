@@ -2,7 +2,7 @@
 /**
  * Prints each test name and writes filename + verdict to a log file.
  *
- * @package LoginPageCustomizer
+ * @package SikorixLoginPageCustomizer
  */
 
 use PHPUnit\Framework\AssertionFailedError;
@@ -16,7 +16,7 @@ use PHPUnit\Framework\Warning;
 /**
  * PHPUnit listener for console names and a results log.
  */
-class Sikora_Login_Test_Logger implements TestListener {
+class Sikorix_Login_Test_Logger implements TestListener {
 	use TestListenerDefaultImplementation;
 
 	/**
@@ -54,7 +54,7 @@ class Sikora_Login_Test_Logger implements TestListener {
 		$this->log_file = $log_dir . '/results.log';
 		file_put_contents(
 			$this->log_file,
-			sprintf( "# Login Page Customizer test results — %s\n", gmdate( 'c' ) )
+			sprintf( "# Sikorix Login Page Customizer test results — %s\n", gmdate( 'c' ) )
 		);
 	}
 

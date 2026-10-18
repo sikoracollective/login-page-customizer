@@ -1,14 +1,14 @@
 <?php
 /**
- * Shared helpers for Login Page Customizer integration tests.
+ * Shared helpers for Sikorix Login Page Customizer integration tests.
  *
- * @package LoginPageCustomizer
+ * @package SikorixLoginPageCustomizer
  */
 
 /**
  * Base test case with attachment fixture helpers.
  */
-class Sikora_Login_Test_Case extends WP_UnitTestCase {
+class Sikorix_Login_Test_Case extends WP_UnitTestCase {
 
 	/**
 	 * Creates a Media Library attachment from a fixture file.
